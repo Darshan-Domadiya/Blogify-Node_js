@@ -7,14 +7,24 @@
   <body>
     <%- include('./partials/nav') %>
 
-    <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex p-3">
       <% blogs.forEach(blog => { %>
-      <div class="card" style="width: 18rem">
-        <img src="<%- blog.coverImage %>" class="card-img-top" alt="..." />
+      <div class="card m-2" style="width: 18rem">
+        <img
+          src="<%- blog.coverImage %>"
+          class="card-img-top"
+          height="200px"
+          width="300px"
+        />
         <div class="card-body">
-          <h5 class="card-title"><%= blog.title %></h5>
-          <p class="card-text"><%= blog.content %></p>
-          <a href="/blog/<%= blog._id %>" class="btn btn-primary">View Blog</a>
+          <div style="height: 65px">
+            <h5 class="card-title"><%= blog.title %></h5>
+          </div>
+          <div class="d-flex align-items-center justify-content-start">
+            <a href="/blog/<%= blog._id %>" class="btn btn-primary"
+              >View Blog</a
+            >
+          </div>
         </div>
       </div>
       <% }) %>
