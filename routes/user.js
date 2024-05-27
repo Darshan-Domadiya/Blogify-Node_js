@@ -7,7 +7,7 @@ router.get("/signup", (req, res) => {
   return res.render("signup");
 });
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", async (req, res, next) => {
   const { fullName, email, password } = req.body;
 
   await User.create({
@@ -19,7 +19,7 @@ router.post("/signup", async (req, res) => {
 });
 
 router.get("/signin", (req, res) => {
-  res.render("signin");
+  return res.render("signin");
 });
 
 router.post("/signin", async (req, res) => {
@@ -40,7 +40,7 @@ router.post("/signin", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  res.clearCookie("token").redirect("/");
+  return res.clearCookie("token").redirect("/");
 });
 
 module.exports = router;

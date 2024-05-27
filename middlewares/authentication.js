@@ -10,10 +10,10 @@ function checkForAuthenticationCookie(cookiename) {
     try {
       const userPayload = verifyUserByToken(tokenCookieValue);
       req.user = userPayload;
-      next();
+      return next();
     } catch (error) {}
     return next();
   };
 }
 
-module.exports = {  checkForAuthenticationCookie };
+module.exports = { checkForAuthenticationCookie };

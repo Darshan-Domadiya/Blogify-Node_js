@@ -1,10 +1,11 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const Blog = require("../models/blog");
 
 const router = express.Router();
 
-router.get("/add-new", (req, res, next) => {
+router.get("/add-new", (req, res) => {
   return res.render("addBlog", {
     user: req.user,
   });
@@ -20,14 +21,19 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });   
+const upload = multer({ storage });
 
+router.post("/", upload.single("coverImage"), async (req, res) => {
+  const { title, content } = req.body;
 
-router.post("/", upload.single("coverImage"), (req, res, next) => {
-  console.log(req.body);
-  console.log(req.file);
-  next();
-  return res.redirect("/");
+  const blog = await Blog.create({
+    title,
+    content,
+    createdBy: req.user._id,
+    coverImage: `/uploads/${req.file.filename}`,
+  });
+
+  return res.redirect(`/blog/${blog._id}`);
 });
 
 module.exports = router;
